@@ -1,5 +1,5 @@
 #pragma once
-#include <iostream>
+#include <stdio.h>
 
 //图的表示——邻接矩阵的实现
 
@@ -16,21 +16,29 @@ typedef int Status;
 #define VISITED 1
 #define INFINTY MAXINT
 
-#define VexType char
+#define VexType int
 
+/*图的种类
+* DG：有向图
+* DN：有向权图
+* UDG：无向图
+* UDN：无向权图
+*/
 typedef enum{DG,DN,UDG,UDN} GraphKind;
 
 typedef struct {
-	VexType v, w;
-	int info;
+	VexType v, w;	//边的起始点
+	int info;	//边的权值？
 }ArcInfo;
 
-typedef struct
+//图的邻接矩阵定义
+typedef struct MGraph
 {
-	VexType* vexs;
-	int **arcs;
-	int n, e;
-	GraphKind kind;
+	VexType* vexs;	//顶点数组
+	int **arcs;		//邻接矩阵
+	int n;		//顶点的个数
+	int e;		//边的个数
+	GraphKind kind;		//图的种类
 	int *tag;
 }MGraph;
 
@@ -156,13 +164,13 @@ Status CreateUDN(MGraph &G, VexType *vexs, int n, ArcInfo *arc, int e)
 //有向图
 Status CreateDG(MGraph &G, VexType *vexs, int n, ArcInfo *arc, int e)
 {
-
+	return FALSE;
 }
 
 //有向带权图
 Status CreateDN(MGraph &G, VexType *vexs, int n, ArcInfo *arc, int e)
 {
-
+	return FALSE;
 }
 
 Status CreateGraph(MGraph &G, GraphKind k, VexType *vexs, int n, ArcInfo *arc, int e)

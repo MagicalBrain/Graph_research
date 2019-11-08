@@ -146,8 +146,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="func03.h" />
     <ClInclude Include="Graph_List.h" />
     <ClInclude Include="Graph_Matrix.h" />
+    <ClInclude Include="Head.h" />
+    <ClInclude Include="Output.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
