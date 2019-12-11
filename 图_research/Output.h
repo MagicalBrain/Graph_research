@@ -19,20 +19,41 @@ void fprint_Graph(Graph G, char str[])
 		ofstream Graph;
 		Graph.open(str);
 		Graph << "digraph G{" << endl;
-
-		for (int i = 0; i < G.num_V; i++)
+		if (G.kind == UDG)
 		{
-			Graph << G.vList[i].vertex << ";" << endl;
-		}
-		
-		for (int i = 0; i < G.num_V; i++)
-		{
-			ArcNode* p = G.vList[i].first_edge;
-			
-			while (p != NULL)
+			for (int i = 0; i < G.num_V; i++)
 			{
-				Graph << G.vList[i].vertex << "->" << p->adjvex << ";" << endl;
-				p = p->next;
+				Graph << G.vList[i].info << ";" << endl;
+			}
+
+			for (int i = 0; i < G.num_V; i++)
+			{
+				ArcNode* p = G.vList[i].first_edge;
+
+				while (p != NULL)
+				{
+					Graph << G.vList[i].info << "->" << G.vList[p->adjvex].info
+						<< "[ arrowhead=\"none\"]"  << ";" << endl;
+					p = p->next;
+				}
+			}
+		}
+		else if (G.kind == DG)
+		{
+			for (int i = 0; i < G.num_V; i++)
+			{
+				Graph << G.vList[i].vertex << ";" << endl;
+			}
+
+			for (int i = 0; i < G.num_V; i++)
+			{
+				ArcNode* p = G.vList[i].first_edge;
+
+				while (p != NULL)
+				{
+					Graph << G.vList[i].vertex << "->" << G.vList[p->adjvex].vertex << ";" << endl;
+					p = p->next;
+				}
 			}
 		}
 		Graph << "}" << endl;
@@ -40,14 +61,17 @@ void fprint_Graph(Graph G, char str[])
 	}
 }
 
+
+
+
 void fprint_MGraph(MGraph G, char str[])
 {
 	if (G.e > 0 && G.n > 0)
 	{
 		ofstream Graph_M;
 		Graph_M.open(str);
-		if (!Graph_M.is_open())
-			cout << "文件打开失败！" << endl;
+		//if (!Graph_M.is_open())
+			//cout << "文件打开失败！" << endl;
 
 		Graph_M << "digraph G{" << endl;
 
@@ -77,8 +101,11 @@ void printf_arcs(MGraph G)
 		{
 			for (int j = 0; j < G.n; j++)
 			{
-				cout << G.vexs[i] << " " << G.vexs[j] << " " << G.arcs[i][j] << endl;
+				//cout << G.vexs[i] << " " << G.vexs[j] << " " << G.arcs[i][j] << endl;
+				printf("%d ", G.arcs[i][j]);
 			}
+			printf("\n");
 		}
+		printf("\n");
 	}
 }

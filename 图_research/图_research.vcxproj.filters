@@ -30,6 +30,21 @@
     <ClInclude Include="func03.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="func04.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="func05.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="func06.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Graph.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LGraph.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

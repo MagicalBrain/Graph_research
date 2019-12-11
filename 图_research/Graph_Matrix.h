@@ -1,5 +1,7 @@
 #pragma once
 #include <stdio.h>
+#include <limits.h>
+#include "Graph.h"
 
 //图的表示——邻接矩阵的实现
 
@@ -14,35 +16,20 @@ typedef int Status;
 
 #define UNVISITED 0
 #define VISITED 1
-#define INFINTY MAXINT
-
-#define VexType int
-
-/*图的种类
-* DG：有向图
-* DN：有向权图
-* UDG：无向图
-* UDN：无向权图
-*/
-typedef enum{DG,DN,UDG,UDN} GraphKind;
-
-typedef struct {
-	VexType v, w;	//边的起始点
-	int info;	//边的权值？
-}ArcInfo;
+#define INFINTY INT_MAX
 
 //图的邻接矩阵定义
 typedef struct MGraph
 {
-	VexType* vexs;	//顶点数组
+	VerNodeElemtype* vexs;	//顶点数组
 	int **arcs;		//邻接矩阵
 	int n;		//顶点的个数
 	int e;		//边的个数
 	GraphKind kind;		//图的种类
 	int *tag;
-}MGraph;
+}MGraph,MGraphPointer;
 
-int LocateVex(MGraph G, VexType v)
+int LocateVex(MGraph G, VerNodeElemtype v)
 //查找顶点下标
 {
 	int num = -1;
@@ -56,7 +43,7 @@ int LocateVex(MGraph G, VexType v)
 
 
 //初始化图
-Status InitGraph(MGraph &G, GraphKind k,VexType *vexs,int n)
+Status InitGraph(MGraph &G, GraphKind k,VerNodeElemtype *vexs,int n)
 {
 	int i, j, info;
 	if (n < 0 || (n > 0 && NULL == vexs))
@@ -64,7 +51,7 @@ Status InitGraph(MGraph &G, GraphKind k,VexType *vexs,int n)
 	if (k == DG || k == UDG)
 		info = 0;
 	else if (k == DN || k == UDN)
-		info = INFINITY;
+		info = INFINTY;
 	else
 		return ERROR;
 
@@ -74,7 +61,7 @@ Status InitGraph(MGraph &G, GraphKind k,VexType *vexs,int n)
 	if (0 == n)
 		return OK;	//一个空图
 
-	if (NULL == (G.vexs = (VexType*)malloc(n * sizeof(int*))))
+	if (NULL == (G.vexs = (VerNodeElemtype*)malloc(n * sizeof(int*))))
 		return	OVERFLOW;
 	
 	//建立顶点数组
@@ -112,10 +99,10 @@ Status InitGraph(MGraph &G, GraphKind k,VexType *vexs,int n)
 }
 
 //无向图
-Status CreateUDG(MGraph &G, VexType *vexs, int n, ArcInfo *arc, int e)
+Status CreateUDG(MGraph &G, VerNodeElemtype *vexs, int n, ArcInfo *arc, int e)
 {
 	int i, j, k;
-	VexType v, w;
+	VerNodeElemtype v, w;
 
 	//初始化
 	if (InitGraph(G, G.kind, vexs, n) != OK)
@@ -137,10 +124,10 @@ Status CreateUDG(MGraph &G, VexType *vexs, int n, ArcInfo *arc, int e)
 }
 
 //无向带权图
-Status CreateUDN(MGraph &G, VexType *vexs, int n, ArcInfo *arc, int e)
+Status CreateUDN(MGraph &G, VerNodeElemtype *vexs, int n, ArcInfo *arc, int e)
 {
 	int i, j, k;
-	VexType v, w;
+	VerNodeElemtype v, w;
 
 	//初始化
 	if (InitGraph(G, G.kind, vexs, n) != OK)
@@ -162,18 +149,18 @@ Status CreateUDN(MGraph &G, VexType *vexs, int n, ArcInfo *arc, int e)
 }
 
 //有向图
-Status CreateDG(MGraph &G, VexType *vexs, int n, ArcInfo *arc, int e)
+Status CreateDG(MGraph &G, VerNodeElemtype *vexs, int n, ArcInfo *arc, int e)
 {
 	return FALSE;
 }
 
 //有向带权图
-Status CreateDN(MGraph &G, VexType *vexs, int n, ArcInfo *arc, int e)
+Status CreateDN(MGraph &G, VerNodeElemtype *vexs, int n, ArcInfo *arc, int e)
 {
 	return FALSE;
 }
 
-Status CreateGraph(MGraph &G, GraphKind k, VexType *vexs, int n, ArcInfo *arc, int e)
+Status CreateGraph(MGraph &G, GraphKind k, VerNodeElemtype *vexs, int n, ArcInfo *arc, int e)
 {
 	if (n < 0 || e < 0 || (n > 0 && NULL == vexs) || (e > 0 && NULL == arc))
 		return ERROR;

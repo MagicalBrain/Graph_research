@@ -16,7 +16,7 @@ MGraph* alG2mG(Graph G)
 	MGraph* re = (MGraph*)malloc(sizeof(MGraph));
 	re->e = G.num_E;
 	re->n = G.num_V;
-	re->vexs = (VexType*)malloc(re->n * sizeof(VexType));
+	re->vexs = (VerNodeElemtype*)malloc(re->n * sizeof(VerNodeElemtype));
 
 	//初始化邻接矩阵的二维数组
 	////分配空间
@@ -47,7 +47,7 @@ MGraph* alG2mG(Graph G)
 		ArcList p = G.vList[i].first_edge;
 		while (p!=NULL)
 		{
-			int c = LocateVex(*re, p->adjvex);
+			int c = LocateVex(*re, G.vList[p->adjvex].vertex);
 			re->arcs[r][c] = 1;
 			re->arcs[c][r] = 1;
 			p = p->next;
