@@ -5,7 +5,7 @@
 
 //图的实现——邻接表
 
-//边表结点的定义
+/*---------边表结点的定义---------*/
 
 typedef struct ArcNode
 {
@@ -39,7 +39,9 @@ typedef struct Graph
 	GraphKind kind;	//图的种类
 }Graph,*GraphPointer;
 
-//初始化图的邻接表
+
+/*---------初始化图的邻接表---------*/
+
 void InitGraphList(Graph G)
 {
 	//初始化图的邻接表
@@ -54,7 +56,8 @@ void InitGraphList(Graph G)
 }
 
 
-//构造一个图的邻接表(无向图)
+//
+/*---------构造一个图的邻接表(无向图)---------*/
 void CreateGraphList_UDG(Graph *G, int num_V, int num_E, int* vertex, ArcInfo* edge)
 /*
 * G: 指向一个图的指针
@@ -159,14 +162,15 @@ void CreateGraphList_UDG(Graph *G, int num_V, int num_E, int* vertex, ArcInfo* e
 }
 
 
-//构造一个图的邻接表(无向网，五项有权图)
+/*------------------构造一个图的邻接表(无向网，无向有权图)------------------*/
 void CreateGraphList_UDN(Graph* G, int num_V, int num_E, int* vertex, ArcInfo* edge)
 {
 	puts("还没完成！");
 }
 
 
-//构造一个图的邻接表(有向图)
+//
+/*------------------构造一个图的邻接表(有向图)------------------*/
 void CreateGraphList_DG(Graph* G, int num_V, int num_E, int* vertex, ArcInfo* edge)
 /*
 * G: 指向一个图的指针
@@ -216,7 +220,7 @@ void CreateGraphList_DG(Graph* G, int num_V, int num_E, int* vertex, ArcInfo* ed
 }
 
 
-//构造一个图的邻接表(有向有权图)
+/*----------------构造一个图的邻接表(有向有权图)----------------*/
 void CreateGraphList_DN(Graph* G, int num_V, int num_E, int* vertex, ArcInfo* edge)
 {
 	puts("还没完成！");
@@ -249,4 +253,20 @@ bool CreateGraphList(Graph* G, int num_V, int num_E, int* vertex, ArcInfo* edge,
 		puts("类型错误！");
 		break;
 	}
+}
+
+/*--------------基本操作--------------*/
+
+//获取该顶点的第一个边表结点
+int FirstAdject(GraphPointer G,int u)
+{
+	return G->vList[u].first_edge->adjvex;
+}
+
+//
+int NextAdject(GraphPointer G, int &u)
+{
+	int re = G->vList[u].first_edge->next->adjvex;
+	u = re;
+	return re;
 }
